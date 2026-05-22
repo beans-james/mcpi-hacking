@@ -81,7 +81,7 @@ def spawn_village(start_x, start_y, start_z, number_of_houses=3):
 if mc:
     x, y, z = mc.player.getTilePos()
     
-    print("\n--- INSTANT BUILDER ---")
+    print("\n-- INSTANT BUILDER")
     print("1 -> Spawn a Giant Forest around you")
     print("2 -> Spawn a Quick Village")
     choice = input("What do you want to build? (1 or 2): ").strip()
