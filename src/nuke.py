@@ -1,45 +1,46 @@
+# nuke.py
 import time
 from init import init
 
 mc = init()
 
 if mc:
-    print("\n-- NUKE CONFIGURATION")
+    print("\n-- GLOBAL nuke CONFIGURATION")
     spam_message = input("Enter the message to spam in chat: ").strip()
     if not spam_message:
-        spam_message = "THE WORLD IS BEING PURGED!"
+        spam_message = "THE VOID CONSUMES ALL!"
 
-    print("\nNuke script activated. Press Ctrl+C in this terminal to stop.")
-    mc.postToChat("!!! CRITICAL SYSTEM WARNING: NUKE ACTIVATED !!!")
+    print("\n[WARNING] Global Purge Activated. Wiping entire world file coordinates...")
+    mc.postToChat("!!! CRITICAL: UNLEASHING TOTAL WORLD ERASED !!!")
     
-    # Block definitions
     AIR = 0
     BEDROCK = 7
     
-    # Define the radius of destruction (how far out from the player it clears)
-    # Note: Setting this too high (e.g., over 50) might crash the Pi or the server.
-    RADIUS = 30 
+    # Minecraft Pi standard world boundaries
+    X_MIN, X_MAX = -128, 128
+    Z_MIN, Z_MAX = -128, 128
+    Y_MIN, Y_MAX = -64, 64  # Total height limit
+
+    mc.setBlock(0, 0, 0, BEDROCK)
+    mc.player.setTilePos(0, 1, 0) # Teleport player safely on top of it
 
     try:
         while True:
-            # Get the current player position to center the nuke
-            px, py, pz = mc.player.getTilePos()
+            # Instantly slice and delete the entire world map
+            # We loop through X slices to prevent the API from overloading and crashing
+            for x_slice in range(X_MIN, X_MAX, 32): 
+                mc.setBlocks(
+                    x_slice, Y_MIN, Z_MIN,
+                    x_slice + 31, Y_MAX, Z_MAX,
+                    AIR
+                )
             
-            # We clear blocks from way down below (py - 20) to high in the sky (py + 40)
-            mc.setBlocks(
-                px - RADIUS, py - 20, pz - RADIUS,
-                px + RADIUS, py + 40, pz + RADIUS,
-                AIR
-            )
-            
-            # Places exactly one block of bedrock right under the player's feet
-            mc.setBlock(px, py - 1, pz, BEDROCK)
-            
+            mc.setBlock(0, 0, 0, BEDROCK)
             mc.postToChat(spam_message)
             
-            # Wait 2 seconds before running the loop again
+            # Pause for 2 seconds before executing the sweep again
             time.sleep(2)
             
     except KeyboardInterrupt:
-        print("\nNuke script deactivated.")
-        mc.postToChat("Nuke sequence aborted.")
+        print("\nPurge loop halted.")
+        mc.postToChat("Purge sequence terminated.")
