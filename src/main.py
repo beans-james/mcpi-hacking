@@ -6,6 +6,7 @@ def menu():
     print("1 -> Run Diamond Body Script (diabody.py)")
     print("2 -> Run Midas Touch Script (midas.py)")
     print("3 -> Run Instant Mega Spawner (spawner.py)")
+    print("4 -> Run WORLD NUKE SCRIPT (nuke.py)")
     
     choice = input("Select an option: ").strip()
 
@@ -21,6 +22,9 @@ def menu():
     elif choice == "3":
         print("\nLaunching Mega Spawner...")
         import spawner
+    elif choice == "4":
+        print("\nLaunching Nuke....")
+        import nuke
     else:
         print("Invalid choice! Try again.")
         menu()
