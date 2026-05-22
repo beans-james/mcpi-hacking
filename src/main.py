@@ -1,10 +1,7 @@
-# main.py
 from init import init
 
-# Initialize and get the minecraft world object
 mc = init()
 
-# Check if the connection was successful before running commands
 if mc:
     # Get the player's current position
     x, y, z = mc.player.getTilePos()
