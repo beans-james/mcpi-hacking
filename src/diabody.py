@@ -7,4 +7,4 @@ if mc:
     x, y, z = mc.player.getTilePos()
 
     mc.setBlock(x, y - 1, z, 57)
-    mc.setBlock(x, y + 1, z, 57)
+    mc.setBlock(x, y + 2, z, 57)
