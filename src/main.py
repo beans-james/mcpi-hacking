@@ -7,7 +7,7 @@ def menu():
     print("2 -> Run Midas Touch Script (midas.py)")
     print("3 -> Run Instant Mega Spawner (spawner.py)")
     
-    choice = input("Select an option (0-2): ").strip()
+    choice = input("Select an option: ").strip()
 
     if choice == "0":
         print("Goodbye!")
